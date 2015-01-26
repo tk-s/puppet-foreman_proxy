@@ -43,7 +43,7 @@ class foreman_proxy::params {
 
   # Add a file to /etc/sudoers.d (true) or uses augeas (false)
   case $::operatingsystem {
-    redhat,centos,Scientific: {
+    'redhat','centos','Scientific': {
       if versioncmp($::operatingsystemrelease, '6.0') >= 0 {
         $use_sudoersd = true
       } else {
@@ -87,7 +87,7 @@ class foreman_proxy::params {
   # TFTP settings - requires optional TFTP puppet module
   $tftp           = true
   case $::operatingsystem {
-    Debian,Ubuntu: {
+    'Debian','Ubuntu': {
       $tftp_syslinux_root = '/usr/lib/syslinux'
     }
     default: {
@@ -118,12 +118,12 @@ class foreman_proxy::params {
 
   # DHCP server settings
   case $::osfamily {
-    Debian: {
+    'Debian': {
       $dhcp_vendor = 'isc'
       $dhcp_config = '/etc/dhcp/dhcpd.conf'
       $dhcp_leases = '/var/lib/dhcp/dhcpd.leases'
     }
-    RedHat: {
+    'RedHat': {
       $dhcp_vendor = 'isc'
       if ($::lsbmajdistrelease == 5) {
         $dhcp_config = '/etc/dhcpd.conf'
@@ -153,7 +153,7 @@ class foreman_proxy::params {
   $dns_tsig_keytab    = '/etc/foreman-proxy/dns.keytab'
   $dns_tsig_principal = "foremanproxy/${::fqdn}@${dns_realm}"
   case $::operatingsystem {
-    Debian,Ubuntu: {
+    'Debian','Ubuntu': {
       $keyfile = '/etc/bind/rndc.key'
       $nsupdate = 'dnsutils'
     }
