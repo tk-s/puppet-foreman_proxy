@@ -195,7 +195,7 @@ class foreman_proxy::params {
   $oauth_consumer_secret = cache_data('oauth_consumer_secret', random_password(32))
 
   $foreman_api_package = $::osfamily ? {
-    Debian  => 'ruby-apipie-bindings',
+    'Debian'  => 'ruby-apipie-bindings',
     default => 'rubygem-apipie-bindings',
   }
 
